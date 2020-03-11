@@ -104725,7 +104725,7 @@ var UIStageParameters = {
     mousePreset: SelectParam.apply(void 0, Object.keys(MouseActionPresets))
 };
 
-var version$1 = "2.0.0";
+var version$1 = "2.0.1";
 
 /**
  * @file Version
