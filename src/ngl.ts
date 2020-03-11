@@ -40,6 +40,8 @@ import TrajectoryPlayer from './trajectory/trajectory-player'
 import Superposition from './align/superposition'
 export { superpose } from './align/align-utils'
 export { guessElement, concatStructures } from './structure/structure-utils'
+import * as STRUCTURES_CONSTANTS from './structure/structure-constants';
+export { STRUCTURES_CONSTANTS };
 
 export { flatten, throttle, download, getQuery, uniqueArray } from './utils'
 import Queue from './utils/queue'
