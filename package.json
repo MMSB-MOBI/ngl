@@ -1,6 +1,6 @@
 {
   "name": "@mmsb/ngl",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Scalable molecular graphics for the web",
   "main": "dist/ngl.js",
   "module": "dist/ngl.esm.js",
@@ -39,13 +39,13 @@
     "testRegex": "\\.spec\\.ts$",
     "testURL": "http://localhost"
   },
-  "homepage": "https://github.com/arose/ngl#readme",
+  "homepage": "https://github.com/alkihis/ngl#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/arose/ngl.git"
+    "url": "https://github.com/alkihis/ngl.git"
   },
   "bugs": {
-    "url": "https://github.com/arose/ngl/issues"
+    "url": "https://github.com/alkihis/ngl/issues"
   },
   "files": [
     "dist"
@@ -60,6 +60,7 @@
     "science"
   ],
   "devDependencies": {
+    "@rollup/plugin-typescript": "^4.0.0",
     "@types/jest": "^23.3.1",
     "@types/node": "^10.17.9",
     "@types/promise-polyfill": "^6.0.0",
@@ -75,7 +76,7 @@
     "eslint": "^5.3.0",
     "eslint-plugin-import": "^2.13.0",
     "eslint-plugin-react": "^7.10.0",
-    "jest": "^23.4.2",
+    "jest": "^25.1.0",
     "mocha": "^5.2.0",
     "promise-polyfill": "^8.0.0",
     "rollup": "^0.63.5",
@@ -92,12 +93,13 @@
     "standard": "^11.0.1",
     "three": "^0.111.0",
     "ts-jest": "^23.1.3",
-    "typedoc": "^0.11.1",
+    "typedoc": "^0.17.0",
     "typescript": "^3.7.3",
     "uglify-js": "^3.4.6"
   },
   "dependencies": {
     "@types/chroma-js": "^1.3.5",
-    "@types/signals": "1.0.1"
+    "@types/signals": "1.0.1",
+    "tslib": "^1.11.1"
   }
 }
