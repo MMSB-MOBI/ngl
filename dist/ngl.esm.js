@@ -69878,7 +69878,7 @@ Buffer.prototype.addAttributes = function addAttributes (attributes) {
         else {
             buf = getTypedArray('float32', arraySize);
         }
-        this$1.geometry.addAttribute(name, new BufferAttribute(buf, itemSize[a.type]).setUsage(this$1.dynamic ? WebGL2RenderingContext.DYNAMIC_DRAW : 0));
+        this$1.geometry.setAttribute(name, new BufferAttribute(buf, itemSize[a.type]).setUsage(this$1.dynamic ? WebGL2RenderingContext.DYNAMIC_DRAW : 0));
     }
 };
 Buffer.prototype.updateRenderOrder = function updateRenderOrder () {
@@ -70007,7 +70007,7 @@ Buffer.prototype.setAttributes = function setAttributes (data) {
         else {
             var attribute = attributes[name];
             if (length > attribute.array.length) {
-                geometry.addAttribute(name, new BufferAttribute(array, attribute.itemSize)
+                geometry.setAttribute(name, new BufferAttribute(array, attribute.itemSize)
                     .setUsage(this$1.dynamic ? WebGL2RenderingContext.DYNAMIC_DRAW : 0));
             }
             else {
@@ -79490,7 +79490,7 @@ var ImageBuffer = (function (Buffer$$1) {
             'pickingMap': { value: pickingTex },
             'mapSize': { value: new Vector2(width, height) }
         });
-        this.geometry.addAttribute('uv', new BufferAttribute(quadUvs, 2));
+        this.geometry.setAttribute('uv', new BufferAttribute(quadUvs, 2));
     }
 
     if ( Buffer$$1 ) ImageBuffer.__proto__ = Buffer$$1;
@@ -100425,9 +100425,9 @@ OBJLoader.prototype = {
             if (geometry.vertices.length === 0)
                 { continue; }
             var buffergeometry = new BufferGeometry();
-            buffergeometry.addAttribute('position', new BufferAttribute(new Float32Array(geometry.vertices), 3));
+            buffergeometry.setAttribute('position', new BufferAttribute(new Float32Array(geometry.vertices), 3));
             if (geometry.normals.length > 0) {
-                buffergeometry.addAttribute('normal', new BufferAttribute(new Float32Array(geometry.normals), 3));
+                buffergeometry.setAttribute('normal', new BufferAttribute(new Float32Array(geometry.normals), 3));
             }
             else {
                 buffergeometry.computeVertexNormals();
