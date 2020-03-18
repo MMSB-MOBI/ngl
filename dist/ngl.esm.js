@@ -58642,7 +58642,7 @@ Viewer.prototype._initHelper = function _initHelper () {
     var positions = new Float32Array(8 * 3);
     var bbGeometry = new BufferGeometry();
     bbGeometry.setIndex(new BufferAttribute(indices, 1));
-    bbGeometry.addAttribute('position', new BufferAttribute(positions, 3));
+    bbGeometry.setAttribute('position', new BufferAttribute(positions, 3));
     var bbMaterial = new ShaderMaterial({
         uniforms: { 'uColor': { value: new Color('skyblue') } },
         vertexShader: getShader('BasicLine.vert'),
@@ -73057,6 +73057,7 @@ prototypeAccessors$f.element.get = function () {
  * Van-der-Waals radius
  */
 prototypeAccessors$f.vdw.get = function () {
+    console.log("Got vdwradii from", this.atomname, this.atomType.vdw);
     return this.atomType.vdw;
 };
 /**

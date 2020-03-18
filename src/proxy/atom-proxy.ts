@@ -187,6 +187,7 @@ class AtomProxy {
    * Van-der-Waals radius
    */
   get vdw () {
+    console.log("Got vdwradii from", this.atomname, this.atomType.vdw);
     return this.atomType.vdw
   }
   /**
