@@ -7,6 +7,7 @@
 import AtomType from './atom-type'
 import { guessElement } from '../structure/structure-utils'
 import Structure from '../structure/structure'
+import { AtomicNumbers } from '../structure/structure-constants'
 
 function getHash (atomname: string, element: string) {
   return atomname + '|' + element
@@ -23,7 +24,7 @@ class AtomMap {
   add (atomname: string, element?: string) {
     atomname = atomname.toUpperCase()
     if (!element) {
-      element = guessElement(atomname)
+      element = (atomname in AtomicNumbers ? atomname : null) || guessElement(atomname)
     } else {
       element = element.toUpperCase()
     }
