@@ -75316,7 +75316,7 @@ var Halogens = [9, 17, 35, 53, 85];
 var AtomType = function AtomType(structure, atomname, element) {
     this.structure = structure;
     this.atomname = atomname;
-    element = element || guessElement(atomname);
+    element = element || (atomname in AtomicNumbers ? atomname : null) || guessElement(atomname);
     this.element = element;
     this.number = AtomicNumbers[element] || DefaultAtomicNumber;
     this.vdw = VdwRadii[this.number] || DefaultVdwRadius;
@@ -104726,7 +104726,7 @@ var UIStageParameters = {
     mousePreset: SelectParam.apply(void 0, Object.keys(MouseActionPresets))
 };
 
-var version$1 = "2.0.4";
+var version$1 = "2.0.5";
 
 /**
  * @file Version
