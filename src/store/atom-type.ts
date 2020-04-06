@@ -53,7 +53,7 @@ class AtomType {
    * @param {String} element - the chemical element
    */
   constructor (readonly structure: Structure, readonly atomname: string, element?: string) {
-    element = element || guessElement(atomname)
+    element = element || (atomname in AtomicNumbers ? atomname : null) || guessElement(atomname)
 
     this.element = element
     this.number = AtomicNumbers[ element ] || DefaultAtomicNumber
