@@ -509,7 +509,7 @@ class Structure implements Structure{
    * @param  {Selection} [selection] - the selection
    * @return {undefined}
    */
-  eachAtom (callback: (entity: AtomProxy) => void, selection?: Selection) {
+  eachAtom (callback: (entity: AtomProxy) => void, selection?: Selection, after?: () => any) {
     if (selection && selection.test) {
       this.eachModel(function (mp) {
         mp.eachAtom(callback, selection)
@@ -522,6 +522,9 @@ class Structure implements Structure{
         callback(ap)
       }
     }
+
+    if (after)
+      after();
   }
 
   /**
