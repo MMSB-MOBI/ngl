@@ -215,7 +215,7 @@ class StructureView extends Structure {
     this.structure.eachBond(callback, this.getSelection(selection))
   }
 
-  eachAtom (callback: (entity: AtomProxy) => any, selection?: Selection) {
+  eachAtom (callback: (entity: AtomProxy) => any, selection?: Selection, after?: () => any) {
     const ap = this.getAtomProxy()
     const atomSet = this.getAtomSet(selection)
     const n = this.atomStore.count
@@ -231,6 +231,9 @@ class StructureView extends Structure {
         callback(ap)
       }
     }
+
+    if (after)
+      after();
   }
 
   eachResidue (callback: (entity: ResidueProxy) => any, selection?: Selection) {
