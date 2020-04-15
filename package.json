@@ -1,6 +1,6 @@
 {
   "name": "@mmsb/ngl",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "description": "Scalable molecular graphics for the web",
   "main": "dist/ngl.js",
   "module": "dist/ngl.esm.js",

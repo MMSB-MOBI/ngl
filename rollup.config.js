@@ -65,7 +65,7 @@ export default {
     glsl(),
     text(),
     json(),
-    buble()
+    buble({ transforms: { forOf: false } })
   ],
   output: [
     {
