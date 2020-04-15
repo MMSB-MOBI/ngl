@@ -77607,7 +77607,7 @@ Structure.prototype.eachBond = function eachBond (callback, selection) {
  * @param  {Selection} [selection] - the selection
  * @return {undefined}
  */
-Structure.prototype.eachAtom = function eachAtom (callback, selection) {
+Structure.prototype.eachAtom = function eachAtom (callback, selection, after) {
     if (selection && selection.test) {
         this.eachModel(function (mp) {
             mp.eachAtom(callback, selection);
@@ -77621,6 +77621,8 @@ Structure.prototype.eachAtom = function eachAtom (callback, selection) {
             callback(ap);
         }
     }
+    if (after)
+        { after(); }
 };
 /**
  * Residue iterator
@@ -104728,7 +104730,7 @@ var UIStageParameters = {
     mousePreset: SelectParam.apply(void 0, Object.keys(MouseActionPresets))
 };
 
-var version$1 = "2.0.10";
+var version$1 = "2.0.11";
 
 /**
  * @file Version
