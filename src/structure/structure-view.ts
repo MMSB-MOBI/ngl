@@ -216,19 +216,25 @@ class StructureView extends Structure {
   }
 
   eachAtom (callback: (entity: AtomProxy) => any, selection?: Selection) {
+    for (const atom of this.atomIterator(selection)) {
+      callback(atom)
+    }
+  }
+
+  *atomIterator(selection?: Selection) {
     const ap = this.getAtomProxy()
     const atomSet = this.getAtomSet(selection)
     const n = this.atomStore.count
 
     if (atomSet.getSize() < n) {
-      atomSet.forEach(function (index) {
+      for (const [index, ] of atomSet) {
         ap.index = index
-        callback(ap)
-      })
+        yield ap
+      }
     } else {
       for (let i = 0; i < n; ++i) {
         ap.index = i
-        callback(ap)
+        yield ap
       }
     }
   }

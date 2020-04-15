@@ -440,6 +440,12 @@ export default class BitArray {
    * @return {undefined}
    */
   forEach (callback: (index: number, i: number) => any) {
+    for (const [index, i] of this) {
+      callback(index, i);
+    }
+  }
+
+  *[Symbol.iterator]() {
     const count = this._words.length
     const words = this._words
     let i = 0
@@ -448,7 +454,7 @@ export default class BitArray {
       while (w !== 0) {
         const t = w & -w
         const index = (k << 5) + hammingWeight(t - 1)
-        callback(index, i)
+        yield [index, i];
         w ^= t
         ++i
       }
