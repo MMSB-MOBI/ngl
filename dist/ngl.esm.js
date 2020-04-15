@@ -81964,7 +81964,7 @@ var StructureView = (function (Structure$$1) {
     StructureView.prototype.eachBond = function eachBond (callback, selection) {
         this.structure.eachBond(callback, this.getSelection(selection));
     };
-    StructureView.prototype.eachAtom = function eachAtom (callback, selection) {
+    StructureView.prototype.eachAtom = function eachAtom (callback, selection, after) {
         var ap = this.getAtomProxy();
         var atomSet = this.getAtomSet(selection);
         var n = this.atomStore.count;
@@ -81980,6 +81980,8 @@ var StructureView = (function (Structure$$1) {
                 callback(ap);
             }
         }
+        if (after)
+            { after(); }
     };
     StructureView.prototype.eachResidue = function eachResidue (callback, selection) {
         this.structure.eachResidue(callback, this.getSelection(selection));
@@ -104726,7 +104728,7 @@ var UIStageParameters = {
     mousePreset: SelectParam.apply(void 0, Object.keys(MouseActionPresets))
 };
 
-var version$1 = "2.0.9";
+var version$1 = "2.0.10";
 
 /**
  * @file Version
