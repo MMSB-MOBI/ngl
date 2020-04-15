@@ -125,6 +125,7 @@ import TetrahedronBuffer from './buffer/tetrahedron-buffer'
 import TextBuffer from './buffer/text-buffer'
 import TorusBuffer from './buffer/torus-buffer'
 import WidelineBuffer from './buffer/wideline-buffer'
+import LineBuffer from './buffer/line-buffer'
 
 //
 
@@ -256,6 +257,7 @@ export {
   TextBuffer,
   TorusBuffer,
   WidelineBuffer,
+  LineBuffer,
 
   Shape,
 
