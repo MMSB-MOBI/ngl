@@ -93452,6 +93452,105 @@ var TorusBuffer = (function (GeometryBuffer$$1) {
 BufferRegistry.add('torus', TorusBuffer);
 
 /**
+ * @file Line Buffer
+ * @author Alexander Rose <alexander.rose@weirdbyte.de>
+ * @private
+ */
+function getSize$3(data) {
+    var size = data.position1.length / 3;
+    var attrSize = size * 4;
+    return attrSize * 3;
+}
+/**
+ * Line buffer. Draws lines with a fixed width in pixels.
+ *
+ * @example
+ * var lineBuffer = new LineBuffer({
+ *   position1: new Float32Array([ 0, 0, 0 ]),
+ *   position2: new Float32Array([ 1, 1, 1 ]),
+ *   color: new Float32Array([ 1, 0, 0 ]),
+ *   color2: new Float32Array([ 0, 1, 0 ])
+ * });
+ */
+var LineBuffer = (function (Buffer$$1) {
+    function LineBuffer(data, params) {
+        if ( params === void 0 ) params = {};
+
+        Buffer$$1.call(this, {
+            position: new Float32Array(getSize$3(data)),
+            color: new Float32Array(getSize$3(data))
+        }, params);
+        this.isLine = true;
+        this.vertexShader = 'Line.vert';
+        this.fragmentShader = 'Line.frag';
+        this.setAttributes(data);
+    }
+
+    if ( Buffer$$1 ) LineBuffer.__proto__ = Buffer$$1;
+    LineBuffer.prototype = Object.create( Buffer$$1 && Buffer$$1.prototype );
+    LineBuffer.prototype.constructor = LineBuffer;
+    LineBuffer.prototype.setAttributes = function setAttributes (data) {
+        if ( data === void 0 ) data = {};
+
+        var position1, position2, color, color2;
+        var aPosition, aColor;
+        var attributes = this.geometry.attributes; // TODO
+        if (data.position1 && data.position2) {
+            position1 = data.position1;
+            position2 = data.position2;
+            aPosition = attributes.position.array;
+            attributes.position.needsUpdate = true;
+        }
+        if (data.color && data.color2) {
+            color = data.color;
+            color2 = data.color2;
+            aColor = attributes.color.array;
+            attributes.color.needsUpdate = true;
+        }
+        var n = this.size;
+        var i, j;
+        var x, y, z, x1, y1, z1, x2, y2, z2;
+        for (var v = 0; v < n; v++) {
+            j = v * 3;
+            i = v * 4 * 3;
+            if (position1 && position2) {
+                x1 = position1[j];
+                y1 = position1[j + 1];
+                z1 = position1[j + 2];
+                x2 = position2[j];
+                y2 = position2[j + 1];
+                z2 = position2[j + 2];
+                x = (x1 + x2) / 2.0;
+                y = (y1 + y2) / 2.0;
+                z = (z1 + z2) / 2.0;
+                aPosition[i] = x1;
+                aPosition[i + 1] = y1;
+                aPosition[i + 2] = z1;
+                aPosition[i + 3] = x;
+                aPosition[i + 4] = y;
+                aPosition[i + 5] = z;
+                aPosition[i + 6] = x;
+                aPosition[i + 7] = y;
+                aPosition[i + 8] = z;
+                aPosition[i + 9] = x2;
+                aPosition[i + 10] = y2;
+                aPosition[i + 11] = z2;
+            }
+            if (color && color2) {
+                aColor[i] = aColor[i + 3] = color[j];
+                aColor[i + 1] = aColor[i + 4] = color[j + 1];
+                aColor[i + 2] = aColor[i + 5] = color[j + 2];
+                aColor[i + 6] = aColor[i + 9] = color2[j];
+                aColor[i + 7] = aColor[i + 10] = color2[j + 1];
+                aColor[i + 8] = aColor[i + 11] = color2[j + 2];
+            }
+        }
+    };
+
+    return LineBuffer;
+}(Buffer));
+
+/**
  * @file Parser
  * @author Alexander Rose <alexander.rose@weirdbyte.de>
  * @private
@@ -104730,7 +104829,7 @@ var UIStageParameters = {
     mousePreset: SelectParam.apply(void 0, Object.keys(MouseActionPresets))
 };
 
-var version$1 = "2.0.11";
+var version$1 = "2.0.12";
 
 /**
  * @file Version
@@ -104752,5 +104851,5 @@ if (!window.Promise) {
     window.Promise = Promise$1;
 }
 
-export { structureConstants as STRUCTURES_CONSTANTS, Version, StaticDatasource, MdsrvDatasource, Colormaker, Selection, PdbWriter, SdfWriter, StlWriter, Stage, Collection, ComponentCollection, RepresentationCollection, Component, ShapeComponent, StructureComponent, SurfaceComponent, VolumeComponent, Assembly, TrajectoryPlayer, Superposition, Frames, Queue, Counter, BufferRepresentation, ArrowBuffer, BoxBuffer, ConeBuffer, CylinderBuffer, EllipsoidBuffer, MeshBuffer, OctahedronBuffer, PointBuffer, SphereBuffer, TetrahedronBuffer, TextBuffer, TorusBuffer, WideLineBuffer as WidelineBuffer, Shape$1 as Shape, Structure, Kdtree$1 as Kdtree, SpatialHash, MolecularSurface, Volume, MouseActions, KeyActions, Debug, setDebug, MeasurementDefaultParams, setMeasurementDefaultParams, ScriptExtensions, ColormakerRegistry$1 as ColormakerRegistry, DatasourceRegistry, DecompressorRegistry, ParserRegistry$1 as ParserRegistry, RepresentationRegistry, setListingDatasource, setTrajectoryDatasource, ListingDatasource, TrajectoryDatasource, autoLoad, getDataInfo, getFileInfo, superpose, guessElement, concatStructures, flatten$1 as flatten, throttle, download, getQuery, uniqueArray, LeftMouseButton, MiddleMouseButton, RightMouseButton, signals_1 as Signal, Matrix3, Matrix4, Vector2, Vector3, Box3, Quaternion, Euler, Plane, Color, UIStageParameters };
+export { structureConstants as STRUCTURES_CONSTANTS, Version, StaticDatasource, MdsrvDatasource, Colormaker, Selection, PdbWriter, SdfWriter, StlWriter, Stage, Collection, ComponentCollection, RepresentationCollection, Component, ShapeComponent, StructureComponent, SurfaceComponent, VolumeComponent, Assembly, TrajectoryPlayer, Superposition, Frames, Queue, Counter, BufferRepresentation, ArrowBuffer, BoxBuffer, ConeBuffer, CylinderBuffer, EllipsoidBuffer, MeshBuffer, OctahedronBuffer, PointBuffer, SphereBuffer, TetrahedronBuffer, TextBuffer, TorusBuffer, WideLineBuffer as WidelineBuffer, LineBuffer, Shape$1 as Shape, Structure, Kdtree$1 as Kdtree, SpatialHash, MolecularSurface, Volume, MouseActions, KeyActions, Debug, setDebug, MeasurementDefaultParams, setMeasurementDefaultParams, ScriptExtensions, ColormakerRegistry$1 as ColormakerRegistry, DatasourceRegistry, DecompressorRegistry, ParserRegistry$1 as ParserRegistry, RepresentationRegistry, setListingDatasource, setTrajectoryDatasource, ListingDatasource, TrajectoryDatasource, autoLoad, getDataInfo, getFileInfo, superpose, guessElement, concatStructures, flatten$1 as flatten, throttle, download, getQuery, uniqueArray, LeftMouseButton, MiddleMouseButton, RightMouseButton, signals_1 as Signal, Matrix3, Matrix4, Vector2, Vector3, Box3, Quaternion, Euler, Plane, Color, UIStageParameters };
 //# sourceMappingURL=ngl.esm.js.map
