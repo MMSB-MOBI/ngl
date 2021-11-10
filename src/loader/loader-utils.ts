@@ -20,6 +20,7 @@ export interface LoaderParameters {
  dir: string
  path: string
  protocol: string
+ coarse_grained: boolean; 
 }
 
 export type LoaderInput = File|Blob|string

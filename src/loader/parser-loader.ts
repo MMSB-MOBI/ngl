@@ -15,6 +15,7 @@ export interface ParserParams {
   cAlphaOnly?: boolean
   name?: string
   path?: string
+  coarse_grained?: boolean
 }
 
 /**
@@ -32,7 +33,8 @@ class ParserLoader extends Loader {
       asTrajectory: params.asTrajectory,
       cAlphaOnly: params.cAlphaOnly,
       name: this.parameters.name,
-      path: this.parameters.path
+      path: this.parameters.path,
+      coarse_grained : this.parameters.coarse_grained, 
     }
   }
 

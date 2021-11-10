@@ -148,7 +148,8 @@ export type StageParameters = typeof StageDefaultParameters
 
 export interface StageLoadFileParams extends LoaderParameters {
   defaultRepresentation: boolean,
-  assembly: string
+  assembly: string,
+  coarse_grained: boolean; 
 }
 
 /**

@@ -15,7 +15,8 @@ import Assembly, { AssemblyPart } from '../symmetry/assembly'
 import { WaterNames } from '../structure/structure-constants'
 import {
   assignSecondaryStructure, buildUnitcellAssembly,
-  calculateBonds, calculateChainnames, calculateSecondaryStructure
+  calculateChainnames, calculateSecondaryStructure, 
+  calculateBonds
 } from '../structure/structure-utils'
 import Streamer from '../streamer/streamer';
 import { ParserParameters } from './parser';
@@ -78,6 +79,7 @@ function getModresId (resno: number, chainname?: string, inscode?: string) {
 }
 export interface PdbParserParameters extends ParserParameters {
   hex: boolean
+  coarse_grained?: boolean
 }
 
 class PdbParser extends StructureParser {
@@ -96,6 +98,7 @@ class PdbParser extends StructureParser {
     super(streamer, p)
 
     this.hex = defaults(p.hex, false)
+    this.coarse_grained = p.coarse_grained
   }
 
   get type () { return 'pdb' }
@@ -695,7 +698,7 @@ class PdbParser extends StructureParser {
 
     s.finalizeAtoms()
     if (!isLegacy) calculateChainnames(s)
-    calculateBonds(s)
+    if(!this.coarse_grained) calculateBonds(s)
     s.finalizeBonds()
 
     if (!helices.length && !sheets.length) {
