@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file, following the suggestions of [Keep a CHANGELOG](http://keepachangelog.com/). This project adheres to [Semantic Versioning](http://semver.org/).
 
+## MMSB version
+
+### 2.1.0
+
+* Add coarse_grained parameters to stage.loadFile parameters, if coarse_grained = true, don't compute ngl bonds and just use bonds described in CONECT field. Just available for pdb parser. 
 
 ## [Unreleased]
 ### Added
