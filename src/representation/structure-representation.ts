@@ -32,10 +32,11 @@ import Surface from '../surface/surface'
  * @property {String} assembly - name of an assembly object. Included are the asymmetric unit (*AU*) corresponding to the coordinates given in the structure file, biological assemblies from *PDB*, *mmCIF* or *MMTF* files (*BU1*, *BU2*, ...), a filled (crystallographic) unitcell of a given space group (*UNITCELL*), a supercell consisting of a center unitcell and its 26 direct neighbors (*SUPERCELL*). Set to *default* to use the default asemmbly of the structure object.
  */
 export interface StructureRepresentationParameters extends RepresentationParameters {
-  radiusType: string
+  radiusType: string,
   radius: number
   scale: number
-  assembly: string
+  assembly: string, 
+
 }
 export interface StructureRepresentationData {
   bufferList: Buffer[]
@@ -58,6 +59,10 @@ abstract class StructureRepresentation extends Representation {
   protected radiusData: {[k: number]: number}
   protected radiusSize: number
   protected radiusScale: number
+  protected radiusBondType : RadiusType
+  protected radiusBondData: {[k: number]: number}
+  protected radiusBondSize: number
+  protected radiusBondScale: number
   protected assembly: string
   protected defaultAssembly: string
   protected needsBuild: boolean
@@ -86,6 +91,18 @@ abstract class StructureRepresentation extends Representation {
         type: 'number', precision: 3, max: 10.0, min: 0.001
       },
       radiusScale: {
+        type: 'number', precision: 3, max: 10.0, min: 0.001
+      },
+      radiusBondType: {
+        type: 'select', options: RadiusFactory.types
+      },
+      radiusBondData: {
+        type: 'hidden'
+      },
+      radiusBondSize: {
+        type: 'number', precision: 3, max: 10.0, min: 0.001
+      },
+      radiusBondScale: {
         type: 'number', precision: 3, max: 10.0, min: 0.001
       },
       assembly: null,
@@ -153,6 +170,10 @@ abstract class StructureRepresentation extends Representation {
     this.radiusData = defaults(p.radiusData, {})
     this.radiusSize = defaults(p.radiusSize, 1.0)
     this.radiusScale = defaults(p.radiusScale, 1.0)
+    this.radiusBondType = defaults(p.radiusBondType, 'vdw')
+    this.radiusBondData = defaults(p.radiusBondData, {})
+    this.radiusBondSize = defaults(p.radiusBondSize, 1.0)
+    this.radiusBondScale = defaults(p.radiusBondScale, 1.0)
     this.assembly = defaults(p.assembly, 'default')
     this.defaultAssembly = defaults(p.defaultAssembly, '')
 
@@ -285,6 +306,16 @@ abstract class StructureRepresentation extends Representation {
     }
   }
 
+  getRadiusBondsParams(param?:any){
+    return {
+        type: this.radiusBondType,
+        scale: this.radiusBondScale,
+        size: this.radiusBondSize,
+        data: this.radiusBondData
+    }
+  }
+
+
   getAtomParams (what?: AtomDataFields, params?: AtomDataParams) {
     return Object.assign({
       what: what,
@@ -297,7 +328,7 @@ abstract class StructureRepresentation extends Representation {
     return Object.assign({
       what: what,
       colorParams: this.getColorParams(),
-      radiusParams: this.getRadiusParams()
+      radiusParams: this.getRadiusBondsParams()
     }, params)
   }
 

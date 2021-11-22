@@ -63,6 +63,8 @@ class RibbonRepresentation extends StructureRepresentation {
     p.colorScale = defaults(p.colorScale, 'RdYlBu')
     p.radiusType = defaults(p.radiusType, 'sstruc')
     p.radiusScale = defaults(p.radiusScale, 4.0)
+    p.radiusBondType = defaults(p.radiusBondType, 'sstruc')
+    p.radiusBondScale = defaults(p.radiusBondScale, 4.0)
 
     if (p.quality === 'low') {
       this.subdiv = 3

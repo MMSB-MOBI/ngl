@@ -28,6 +28,7 @@ class TubeRepresentation extends CartoonRepresentation {
     var p = params || {}
     p.aspectRatio = 1.0
     p.radiusScale = defaults(p.radiusScale, 2.0)
+    p.radiusBondScale = defaults(p.radiusBondScale, 2.0)
 
     if (p.quality === 'low') {
       this.radialSegments = 5

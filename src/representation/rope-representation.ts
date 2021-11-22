@@ -41,6 +41,7 @@ class RopeRepresentation extends CartoonRepresentation {
     p.aspectRatio = 1.0
     p.tension = defaults(p.tension, 0.5)
     p.radiusScale = defaults(p.radiusScale, 5.0)
+    p.radiusBondScale = defaults(p.radiusBondScale, 5.0)
     p.smoothSheet = false
 
     this.smooth = defaults(p.smooth, 2)

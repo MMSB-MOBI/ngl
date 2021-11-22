@@ -78,6 +78,8 @@ class RocketRepresentation extends StructureRepresentation {
     p.colorScheme = defaults(p.colorScheme, 'sstruc')
     p.radiusSize = defaults(p.radiusSize, 1.5)
     p.radiusScale = defaults(p.radiusScale, 1.0)
+    p.radiusBondSize = defaults(p.radiusBondSize, 1.5)
+    p.radiusBondScale = defaults(p.radiusBondScale, 1.0)
     p.openEnded = defaults(p.openEnded, false)
     p.useInteriorColor = defaults(p.useInteriorColor, true)
 
